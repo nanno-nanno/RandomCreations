@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="runjunit" name ="INTE ant" basedir=".">
+
+	<target name="runjunit" depends="compileTest">
+	<junit printsummary="yes" showoutput="true" haltonfailure="yes" fork="no">
+		<formatter type="plain" usefile="false" />
+		<test name="TestSvit"/>
+		<classpath>
+		<pathelement location="./stagingtest"/>
+		<pathelement location="./staging"/>
+		<pathelement location="./junit-4.7.jar"/>
+		</classpath>
+	</junit>
+	</target>
+	
+	<target name="compileCode" depends="cleanTest">
+		<mkdir dir="./staging"/>
+		<javac includeantruntime="false" srcdir="./src" destdir="staging" verbose="true"/>
+		
+	</target>
+	<target name="compileTest" depends="compileCode">
+	<mkdir dir="./stagingtest"/>
+	<javac includeantruntime="false" srcdir=".\Testfall" destdir="stagingtest" verbose="true">
+	<classpath>
+	<pathelement location="./junit-4.7.jar"/>
+	<pathelement location="./staging/"/>
+	<pathelement location="./Testfall"/>
+	</classpath>
+	</javac>
+	</target>
+	
+	
+	<target name="cleanCode">
+	<delete dir="./staging"/>	
+	</target>
+	
+	<target name="cleanTest" depends="cleanCode">
+	<delete dir="./stagingtest"/>	
+	</target>
+
+</project>
